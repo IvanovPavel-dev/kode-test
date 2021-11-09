@@ -75,10 +75,41 @@ function AppTopBar() {
     return 0;
   }
 
+  const debounce = (fn, ms) => {
+    let timeout;
+    return function () {
+      const fnCall = () => {
+        fn.apply(this, arguments);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(fnCall, ms);
+    };
+  };
+  function onInput(event) {
+    searchByName(event.target.value.toLowerCase());
+  }
+
+  let onChangeDebounced = debounce(onInput, 500);
+
+  function searchByName(partName) {
+    const tempArr = displayedArray.filter((item) => {
+      return (
+        item.firstName.toLowerCase().startsWith(partName) ||
+        item.userTag.toLowerCase().startsWith(partName)
+      );
+    });
+    setDisplayedArray(tempArr);
+  }
+
   return (
     <div>
       <div>Поиск</div>
-      <input type="text" placeholder="Введите имя, тег, почту..." />
+      <input
+        type="text"
+        placeholder="Введите имя, тег, почту..."
+        required
+        onChange={onChangeDebounced}
+      />
       <div>
         <button onClick={showAll}>Все</button>
         <button
