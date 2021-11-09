@@ -5,8 +5,7 @@ function AppTopBar() {
   const [usersArray, setUsersArray] = useState([]);
   const [isLoaded, setIsloaded] = useState(false);
   const [displayedArray, setDisplayedArray] = useState([]);
-  const [isAlfabetSort, setIsAlfabetSort] = useState(true);
-  // const [isBirhdateSort, setIsBirhdateSor] = useState(false);
+  // const [isAlfabetSort, setIsAlfabetSort] = useState(true);
 
   const options = {
     method: "GET",
@@ -24,8 +23,8 @@ function AppTopBar() {
       .request(options)
       .then(function (response) {
         const tempArr = response.data.items;
-        setUsersArray(tempArr);
-        setDisplayedArray(tempArr);
+        setUsersArray(tempArr.sort(byName));
+        setDisplayedArray(tempArr.sort(byName));
         setIsloaded(true);
       })
       .catch(function (error) {
@@ -36,29 +35,153 @@ function AppTopBar() {
     fetchUsers();
   }, []);
 
+  function filterPearsons(searchedDepartment) {
+    const tempArr = usersArray.filter((item) => {
+      return item.department === searchedDepartment;
+    });
+    setDisplayedArray(tempArr);
+  }
+
+  function showAll() {
+    setDisplayedArray(usersArray);
+  }
+
+  function sort(typeFn) {
+    const tempArr = [...usersArray].sort(typeFn);
+    setDisplayedArray(tempArr);
+    setUsersArray(tempArr);
+  }
+
+  function getNextBirthday(date) {
+    let currentDate = new Date();
+    let birthday = new Date(date);
+    birthday.setFullYear(currentDate.getFullYear());
+    if (birthday - currentDate < 0) {
+      birthday.setFullYear(currentDate.getFullYear() + 1);
+    }
+    return birthday;
+  }
+  function byNow(a, b) {
+    return getNextBirthday(a.birthday) - getNextBirthday(b.birthday);
+  }
+
+  function byName(a, b) {
+    if (a.firstName > b.firstName) {
+      return 1;
+    }
+    if (a.firstName < b.firstName) {
+      return -1;
+    }
+    return 0;
+  }
+
   return (
     <div>
       <div>Поиск</div>
       <input type="text" placeholder="Введите имя, тег, почту..." />
       <div>
-        <button>Все</button>
-        <button>Дизайн</button>
-        <button>Менеджмент</button>
-        <button>iOs</button>
-        <button>Android</button>
-        <button>QA</button>
-        <button>Бэк-офис</button>
-        <button>Frontend</button>
-        <button>HR</button>
-        <button>PR</button>
-        <button>Backend</button>
-        <button>Техподдержка</button>
-        <button>Аналитика</button>
-        <button>sort a-b</button>
-        <button>sort by date</button>
+        <button onClick={showAll}>Все</button>
+        <button
+          onClick={() => {
+            filterPearsons("design");
+          }}
+        >
+          Дизайн
+        </button>
+        <button
+          onClick={() => {
+            filterPearsons("management");
+          }}
+        >
+          Менеджмент
+        </button>
+        <button
+          onClick={() => {
+            filterPearsons("ios");
+          }}
+        >
+          iOs
+        </button>
+        <button
+          onClick={() => {
+            filterPearsons("android");
+          }}
+        >
+          Android
+        </button>
+        <button
+          onClick={() => {
+            filterPearsons("qa");
+          }}
+        >
+          QA
+        </button>
+        <button
+          onClick={() => {
+            filterPearsons("back_office");
+          }}
+        >
+          Бэк-офис
+        </button>
+        <button
+          onClick={() => {
+            filterPearsons("frontend");
+          }}
+        >
+          Frontend
+        </button>
+        <button
+          onClick={() => {
+            filterPearsons("hr");
+          }}
+        >
+          HR
+        </button>
+        <button
+          onClick={() => {
+            filterPearsons("pr");
+          }}
+        >
+          PR
+        </button>
+        <button
+          onClick={() => {
+            filterPearsons("backend");
+          }}
+        >
+          Backend
+        </button>
+        <button
+          onClick={() => {
+            filterPearsons("support");
+          }}
+        >
+          Техподдержка
+        </button>
+        <button
+          onClick={() => {
+            filterPearsons("analytics");
+          }}
+        >
+          Аналитика
+        </button>
+        <button
+          onClick={() => {
+            sort(byName);
+          }}
+        >
+          sort a-b
+        </button>
+        <button
+          onClick={() => {
+            sort(byNow);
+          }}
+        >
+          sort by date
+        </button>
       </div>
       <div>
-        {usersArray.map((item) => {
+        {displayedArray.map((item) => {
           return (
             <div key={item.id}>
               <img src={item.avatarUrl} />
