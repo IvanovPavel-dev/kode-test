@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+Запланированный ход рвбот с оценкой предполагаемых времменных затрат:
+Оценка времени в {\_} общая на пункт, в [ ] на подпункт, в часах
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. Получить данные с сервера {1}
 
-## Available Scripts
+2. Придумать суть стейта: {1}
 
-In the project directory, you can run:
+   - userArray -> что получили/ с этим работаем
+   - displayedArray -> что выводим
+   - isLoaded-> для экрана Skeleton
+   - isCriticalError-> для экрана критической ошибки
+   - isAlfabetSort-> для вывода сортировки по алфавиту или по дате рождения
 
-### `npm start`
+3. Сделать скелет рабочей логики без красоты: {5}
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+   - input
+   - кнопки отделов
+   - вывод списка пользователей [1]
+   - воплатить логику показа пользователей:
+     - по алфавиту(по умолчанию) [1]
+     - по дате рождения [1]
+     - по отделам [1]
+     - филтрация по инпуту [1]
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+4. Когда всё работает, разбить все по компонентам React: {11}
 
-### `npm test`
+   - <Home /> получение данных с сервера и предварительная сортировка [1]
+     - <User /> компонент профиля человека [1]
+     - <UsersList /> компонент свех пользователей. конечная фильтрация и сортировка списка ползователей [2]
+       - <AppTopBar /> хедер компонент с инпутом и кнопками [1]
+       - <FilteredList /> вывод отсортированных пользователей [1]
+         - <Presentator /> компонент вывода одного из пользователей [1]
+         - <Modal /> всплывающее окно для выбора сортировки по алфавиту или по дате рождения [2]
+         - <EmptyScreen /> экран Skeleton [1]
+         - <CriticalError /> экран критической ошибки [1]
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+5. Сделать роутинги компонент {1}
 
-### `npm run build`
+6. Использовать Figma для наведения красоты компонент {6}
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+7. Сделать верстку адаптивной {2}
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+8. Рефакторинг {?}
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+9. задача со звездочкой\* {?}
 
-### `npm run eject`
+Примечания:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Возможно пункты 4, 6, 7 будут делаться совметно, поэтому затруднительно спрогнозировать уменрьшение или увеличение времени на реализацию
