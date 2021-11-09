@@ -1,9 +1,10 @@
 import "./App.css";
+import AppTopBar from "./Components/AppTopBar/AppTopBar";
 
 function App() {
   return (
     <div className="App">
-      <div>Начнём))</div>
+      <AppTopBar />
     </div>
   );
 }
