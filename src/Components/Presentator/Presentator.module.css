@@ -1,0 +1,75 @@
+.wrapper {
+  position: relative;
+  width: 97%;
+  height: 80px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin: 16px 0px;
+  justify-content: space-between;
+  text-decoration: none;
+  align-items: center;
+}
+.wrapper:link {
+  text-decoration: none;
+}
+.leftBlock {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  align-items: center;
+  padding-left: 16px;
+}
+.nameTeg {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  align-items: flex-end;
+}
+.avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 36px;
+}
+.name {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #050510;
+  text-decoration: none;
+}
+.teg {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  color: #97979b;
+  text-decoration: none;
+  margin-left: 4px;
+}
+.position {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 16px;
+  color: #55555c;
+  text-decoration: none;
+}
+.birthday {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 20px;
+  color: #55555c;
+  padding-right: 16px;
+}
+.textBlock {
+  margin-left: 16px;
+}
+@media screen and (max-width: 1200px) {
+  .wrapper {
+    width: 100%;
+  }
+}

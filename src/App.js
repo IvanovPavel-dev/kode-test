@@ -1,10 +1,18 @@
 import "./App.css";
-import AppTopBar from "./Components/AppTopBar/AppTopBar";
+
+import React from "react";
+
+import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import Home from "./Components/Home/Home";
 
 function App() {
   return (
-    <div className="App">
-      <AppTopBar />
+    <div>
+      <BrowserRouter>
+        <Route path="/" component={Home} />
+        {/* <Route path="/" exact /> */}
+        <Redirect to="users" />
+      </BrowserRouter>
     </div>
   );
 }

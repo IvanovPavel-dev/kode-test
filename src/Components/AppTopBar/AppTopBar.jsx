@@ -1,118 +1,44 @@
-import React, { useState, useEffect } from "react";
-import * as axios from "axios";
+import React from "react";
+import searchImg from "../img/Search.png";
+import filterImg from "../img/Filter.png";
+import s from "./AppTopBar.module.css";
 
-function AppTopBar() {
-  const [usersArray, setUsersArray] = useState([]);
-  const [isLoaded, setIsloaded] = useState(false);
-  const [displayedArray, setDisplayedArray] = useState([]);
-  // const [isAlfabetSort, setIsAlfabetSort] = useState(true);
-
-  const options = {
-    method: "GET",
-    url: "https://stoplight.io/mocks/kode-education/trainee-test/25143926/users",
-    headers: {
-      "Content-Type": "application/json",
-      Prefer: "code=200, example=success",
-      //   Prefer: 'code=500, example=error-500'
-      //   Prefer: "code=200, dynamic=true",
-    },
-  };
-
-  async function fetchUsers() {
-    const response = await axios
-      .request(options)
-      .then(function (response) {
-        const tempArr = response.data.items;
-        setUsersArray(tempArr.sort(byName));
-        setDisplayedArray(tempArr.sort(byName));
-        setIsloaded(true);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  }
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
-  function filterPearsons(searchedDepartment) {
-    const tempArr = usersArray.filter((item) => {
-      return item.department === searchedDepartment;
-    });
-    setDisplayedArray(tempArr);
-  }
-
-  function showAll() {
-    setDisplayedArray(usersArray);
-  }
-
-  function sort(typeFn) {
-    const tempArr = [...usersArray].sort(typeFn);
-    setDisplayedArray(tempArr);
-    setUsersArray(tempArr);
-  }
-
-  function getNextBirthday(date) {
-    let currentDate = new Date();
-    let birthday = new Date(date);
-    birthday.setFullYear(currentDate.getFullYear());
-    if (birthday - currentDate < 0) {
-      birthday.setFullYear(currentDate.getFullYear() + 1);
-    }
-    return birthday;
-  }
-  function byNow(a, b) {
-    return getNextBirthday(a.birthday) - getNextBirthday(b.birthday);
-  }
-
-  function byName(a, b) {
-    if (a.firstName > b.firstName) {
-      return 1;
-    }
-    if (a.firstName < b.firstName) {
-      return -1;
-    }
-    return 0;
-  }
-
-  const debounce = (fn, ms) => {
-    let timeout;
-    return function () {
-      const fnCall = () => {
-        fn.apply(this, arguments);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(fnCall, ms);
-    };
-  };
-  function onInput(event) {
-    searchByName(event.target.value.toLowerCase());
-  }
-
-  let onChangeDebounced = debounce(onInput, 500);
-
-  function searchByName(partName) {
-    const tempArr = displayedArray.filter((item) => {
-      return (
-        item.firstName.toLowerCase().startsWith(partName) ||
-        item.userTag.toLowerCase().startsWith(partName)
-      );
-    });
-    setDisplayedArray(tempArr);
-  }
-
+function AppTopBar({
+  onChangeDebounced,
+  filterPearsons,
+  showAll,
+  setModalActive,
+}) {
   return (
-    <div>
-      <div>Поиск</div>
-      <input
-        type="text"
-        placeholder="Введите имя, тег, почту..."
-        required
-        onChange={onChangeDebounced}
-      />
-      <div>
-        <button onClick={showAll}>Все</button>
+    <div className={s.wrapper}>
+      <div className={s.header}>Поиск</div>
+      <div className={s.InputBar}>
+        <div className={s.inputSearch}>
+          <img className={s.iconSearch} src={searchImg} alt="icon" />
+          <input
+            className={s.inputText}
+            type="text"
+            placeholder="Введите имя, тег, почту..."
+            required
+            onChange={onChangeDebounced}
+          />
+        </div>
+        <img
+          alt="icon"
+          className={s.iconFilter}
+          src={filterImg}
+          onClick={() => {
+            setModalActive(true);
+          }}
+        />
+      </div>
+
+      <div className={s.buttonsRow}>
+        <button className={s.button} onClick={showAll}>
+          Все
+        </button>
         <button
+          className={s.button}
           onClick={() => {
             filterPearsons("design");
           }}
@@ -120,6 +46,7 @@ function AppTopBar() {
           Дизайн
         </button>
         <button
+          className={s.button}
           onClick={() => {
             filterPearsons("management");
           }}
@@ -127,6 +54,7 @@ function AppTopBar() {
           Менеджмент
         </button>
         <button
+          className={s.button}
           onClick={() => {
             filterPearsons("ios");
           }}
@@ -134,6 +62,7 @@ function AppTopBar() {
           iOs
         </button>
         <button
+          className={s.button}
           onClick={() => {
             filterPearsons("android");
           }}
@@ -141,6 +70,7 @@ function AppTopBar() {
           Android
         </button>
         <button
+          className={s.button}
           onClick={() => {
             filterPearsons("qa");
           }}
@@ -148,6 +78,7 @@ function AppTopBar() {
           QA
         </button>
         <button
+          className={s.button}
           onClick={() => {
             filterPearsons("back_office");
           }}
@@ -155,6 +86,7 @@ function AppTopBar() {
           Бэк-офис
         </button>
         <button
+          className={s.button}
           onClick={() => {
             filterPearsons("frontend");
           }}
@@ -162,6 +94,7 @@ function AppTopBar() {
           Frontend
         </button>
         <button
+          className={s.button}
           onClick={() => {
             filterPearsons("hr");
           }}
@@ -169,6 +102,7 @@ function AppTopBar() {
           HR
         </button>
         <button
+          className={s.button}
           onClick={() => {
             filterPearsons("pr");
           }}
@@ -176,6 +110,7 @@ function AppTopBar() {
           PR
         </button>
         <button
+          className={s.button}
           onClick={() => {
             filterPearsons("backend");
           }}
@@ -183,6 +118,7 @@ function AppTopBar() {
           Backend
         </button>
         <button
+          className={s.button}
           onClick={() => {
             filterPearsons("support");
           }}
@@ -190,45 +126,13 @@ function AppTopBar() {
           Техподдержка
         </button>
         <button
+          className={s.button}
           onClick={() => {
             filterPearsons("analytics");
           }}
         >
           Аналитика
         </button>
-        <button
-          onClick={() => {
-            sort(byName);
-          }}
-        >
-          sort a-b
-        </button>
-        <button
-          onClick={() => {
-            sort(byNow);
-          }}
-        >
-          sort by date
-        </button>
-      </div>
-      <div>
-        {displayedArray.map((item) => {
-          return (
-            <div key={item.id}>
-              <img src={item.avatarUrl} />
-              <div>
-                {item.firstName +
-                  " " +
-                  item.lastName +
-                  " " +
-                  item.userTag +
-                  " " +
-                  item.birthday}
-              </div>
-              <div>{item.position}</div>
-            </div>
-          );
-        })}
       </div>
     </div>
   );
