@@ -3,14 +3,14 @@ import s from "./Modal.module.css";
 import cancel from "../img/cancel.png";
 import Selected from "../img/Selected.png";
 
-function Modal({ setModalActive, isAlfabetSort, setIsAlfabetSort }) {
-  function toAlfabetSort() {
-    setIsAlfabetSort(true);
+function Modal({ setModalActive, isAlphabetSort, setIsAlphabetSort }) {
+  function toAlphabetSort() {
+    setIsAlphabetSort(true);
     setModalActive(false);
   }
 
   function toBirthdaySort() {
-    setIsAlfabetSort(false);
+    setIsAlphabetSort(false);
     setModalActive(false);
   }
 
@@ -29,9 +29,9 @@ function Modal({ setModalActive, isAlfabetSort, setIsAlfabetSort }) {
           </div>
         </div>
         <div className={s.choise}>
-          <div onClick={toAlfabetSort} className={s.line}>
+          <div onClick={toAlphabetSort} className={s.line}>
             <div className={s.imgBox}>
-              {isAlfabetSort && (
+              {isAlphabetSort && (
                 <img src={Selected} className={s.img} alt="icon" />
               )}
             </div>
@@ -39,7 +39,7 @@ function Modal({ setModalActive, isAlfabetSort, setIsAlfabetSort }) {
           </div>
           <div onClick={toBirthdaySort} className={s.line}>
             <div className={s.imgBox}>
-              {isAlfabetSort || (
+              {isAlphabetSort || (
                 <img src={Selected} className={s.img} alt="icon" />
               )}
             </div>

@@ -10,8 +10,9 @@ function App() {
     <div>
       <BrowserRouter>
         <Route path="/" component={Home} />
-        <Route path="/" exact />
-        <Redirect to="users" />
+        <Route path="/" exact>
+          <Redirect to="users" />
+        </Route>
       </BrowserRouter>
     </div>
   );

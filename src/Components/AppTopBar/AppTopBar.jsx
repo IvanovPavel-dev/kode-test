@@ -5,10 +5,25 @@ import s from "./AppTopBar.module.css";
 
 function AppTopBar({
   onChangeDebounced,
-  filterPearsons,
+  filterPersons,
   showAll,
   setModalActive,
 }) {
+  const departments = [
+    { id: "design", name: "Дизайн" },
+    { id: "management", name: "Менеджмент" },
+    { id: "ios", name: "iOs" },
+    { id: "android", name: "Android" },
+    { id: "qa", name: "QA" },
+    { id: "back_office", name: "Бэк-офис" },
+    { id: "frontend", name: "Frontend" },
+    { id: "hr", name: "HR" },
+    { id: "pr", name: "PR" },
+    { id: "backend", name: "Backend" },
+    { id: "support", name: "Техподдержка" },
+    { id: "analytics", name: "Аналитика" },
+  ];
+
   return (
     <div className={s.wrapper}>
       <div className={s.header}>Поиск</div>
@@ -37,102 +52,17 @@ function AppTopBar({
         <button className={s.button} onClick={showAll}>
           Все
         </button>
-        <button
-          className={s.button}
-          onClick={() => {
-            filterPearsons("design");
-          }}
-        >
-          Дизайн
-        </button>
-        <button
-          className={s.button}
-          onClick={() => {
-            filterPearsons("management");
-          }}
-        >
-          Менеджмент
-        </button>
-        <button
-          className={s.button}
-          onClick={() => {
-            filterPearsons("ios");
-          }}
-        >
-          iOs
-        </button>
-        <button
-          className={s.button}
-          onClick={() => {
-            filterPearsons("android");
-          }}
-        >
-          Android
-        </button>
-        <button
-          className={s.button}
-          onClick={() => {
-            filterPearsons("qa");
-          }}
-        >
-          QA
-        </button>
-        <button
-          className={s.button}
-          onClick={() => {
-            filterPearsons("back_office");
-          }}
-        >
-          Бэк-офис
-        </button>
-        <button
-          className={s.button}
-          onClick={() => {
-            filterPearsons("frontend");
-          }}
-        >
-          Frontend
-        </button>
-        <button
-          className={s.button}
-          onClick={() => {
-            filterPearsons("hr");
-          }}
-        >
-          HR
-        </button>
-        <button
-          className={s.button}
-          onClick={() => {
-            filterPearsons("pr");
-          }}
-        >
-          PR
-        </button>
-        <button
-          className={s.button}
-          onClick={() => {
-            filterPearsons("backend");
-          }}
-        >
-          Backend
-        </button>
-        <button
-          className={s.button}
-          onClick={() => {
-            filterPearsons("support");
-          }}
-        >
-          Техподдержка
-        </button>
-        <button
-          className={s.button}
-          onClick={() => {
-            filterPearsons("analytics");
-          }}
-        >
-          Аналитика
-        </button>
+        {departments.map(({ id, name }) => (
+          <button
+            key={id}
+            className={s.button}
+            onClick={() => {
+              filterPersons(id);
+            }}
+          >
+            {name}
+          </button>
+        ))}
       </div>
     </div>
   );

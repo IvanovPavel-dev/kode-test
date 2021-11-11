@@ -9,16 +9,19 @@ function Home() {
   const [isLoaded, setIsloaded] = useState(false);
   const [displayedArray, setDisplayedArray] = useState([]);
   const [isFetchError, setIsFetchError] = useState(false);
-  const [isAlfabetSort, setIsAlfabetSort] = useState(true);
-  const [fildredArray, setFiltredArray] = useState([]);
+  const [isAlphabetSort, setIsAlphabetSort] = useState(true);
+  const [filteredArray, setFiltredArray] = useState([]);
+  const serverCode = {
+    successStatic: "code=200, example=success",
+    successDinamic: "code=200, dynamic=true",
+    error: "code=500, example=error-500",
+  };
   const options = {
     method: "GET",
     url: "https://stoplight.io/mocks/kode-education/trainee-test/25143926/users",
     headers: {
       "Content-Type": "application/json",
-      Prefer: "code=200, example=success",
-      // Prefer: "code=200, dynamic=true",
-      // Prefer: "code=500, example=error-500",
+      Prefer: serverCode.successStatic,
     },
   };
 
@@ -43,8 +46,8 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    isAlfabetSort ? sortT(byName) : sortT(byNow);
-  }, [isAlfabetSort]);
+    isAlphabetSort ? sortT(byName) : sortT(byNow);
+  }, [isAlphabetSort]);
 
   function sortT(typeFn) {
     const tempArr = [...usersArray].sort(typeFn);
@@ -54,8 +57,8 @@ function Home() {
   }
 
   function getNextBirthday(date) {
-    let currentDate = new Date();
-    let birthday = new Date(date);
+    const currentDate = new Date();
+    const birthday = new Date(date);
     birthday.setFullYear(currentDate.getFullYear());
     if (birthday - currentDate < 0) {
       birthday.setFullYear(currentDate.getFullYear() + 1);
@@ -90,9 +93,9 @@ function Home() {
             sortT={sortT}
             byNow={byNow}
             byName={byName}
-            setIsAlfabetSort={setIsAlfabetSort}
-            isAlfabetSort={isAlfabetSort}
-            fildredArray={fildredArray}
+            setIsAlphabetSort={setIsAlphabetSort}
+            isAlphabetSort={isAlphabetSort}
+            filteredArray={filteredArray}
             setFiltredArray={setFiltredArray}
           />
         )}

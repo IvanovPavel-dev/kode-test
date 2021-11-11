@@ -14,17 +14,17 @@ function UsersList({
   setDisplayedArray,
   isLoaded,
   isFetchError,
-  isAlfabetSort,
-  setIsAlfabetSort,
-  fildredArray,
+  isAlphabetSort,
+  setIsAlphabetSort,
+  filteredArray,
   setFiltredArray,
 }) {
   const [modalActive, setModalActive] = useState(false);
 
-  function filterPearsons(searchedDepartment) {
-    const tempArr = usersArray.filter((item) => {
-      return item.department === searchedDepartment;
-    });
+  function filterPersons(searchedDepartment) {
+    const tempArr = usersArray.filter(
+      (item) => item.department === searchedDepartment
+    );
     setDisplayedArray(tempArr);
     setFiltredArray(tempArr);
   }
@@ -51,12 +51,11 @@ function UsersList({
   let onChangeDebounced = debounce(onInput, 500);
 
   function searchByName(partName) {
-    const tempArr = fildredArray.filter((item) => {
-      return (
+    const tempArr = filteredArray.filter(
+      (item) =>
         item.firstName.toLowerCase().startsWith(partName) ||
         item.userTag.toLowerCase().startsWith(partName)
-      );
-    });
+    );
     setDisplayedArray(tempArr);
   }
 
@@ -64,7 +63,7 @@ function UsersList({
     <div>
       <AppTopBar
         onChangeDebounced={onChangeDebounced}
-        filterPearsons={filterPearsons}
+        filterPersons={filterPersons}
         sortT={sortT}
         showAll={showAll}
         byName={byName}
@@ -74,15 +73,15 @@ function UsersList({
       {isLoaded && (
         <FilteredList
           displayedArray={displayedArray}
-          isAlfabetSort={isAlfabetSort}
+          isAlphabetSort={isAlphabetSort}
         />
       )}
       {isLoaded || <EmptyScreen />}
       {isFetchError && <CriticalError />}
       {modalActive && (
         <Modal
-          isAlfabetSort={isAlfabetSort}
-          setIsAlfabetSort={setIsAlfabetSort}
+          isAlphabetSort={isAlphabetSort}
+          setIsAlphabetSort={setIsAlphabetSort}
           modalActive={modalActive}
           setModalActive={setModalActive}
           sortT={sortT}
